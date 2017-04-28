@@ -12,7 +12,7 @@ public class GetFirstTrade {
     @Test
     public void getFirstTrade() {
         TradeAPI tradeAPI = new TradeAPI();
-        FirstTrade trade = tradeAPI.getFirstTrade();
+        FirstTrade trade = tradeAPI.getTradeHistory();
         System.out.println(trade.getFirstTradeDate());
     }
 }
