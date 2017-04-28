@@ -3,7 +3,9 @@ package com.getfirsttrade.response;
 /**
  * Created by matst on 28/04/2017.
  */
-public class FirstTrade {
+public class TradeHistory {
+
+    String firstTradeDate;
 
     public String getFirstTradeDate() {
         return firstTradeDate;
@@ -12,9 +14,6 @@ public class FirstTrade {
     public void setFirstTradeDate(String firstTradeDate) {
         this.firstTradeDate = firstTradeDate;
     }
-
-    String firstTradeDate;
-
 
 
 }

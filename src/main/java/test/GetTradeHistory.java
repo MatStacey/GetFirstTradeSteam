@@ -1,18 +1,18 @@
 package test;
 
 import com.getfirsttrade.api.TradeAPI;
-import com.getfirsttrade.response.FirstTrade;
+import com.getfirsttrade.response.TradeHistory;
 import org.junit.Test;
 
 /**
  * Created by matst on 28/04/2017.
  */
-public class GetFirstTrade {
+public class GetTradeHistory {
 
     @Test
-    public void getFirstTrade() {
+    public void getTradeHistory() {
         TradeAPI tradeAPI = new TradeAPI();
-        FirstTrade trade = tradeAPI.getTradeHistory();
+        TradeHistory trade = tradeAPI.getTradeHistory();
         System.out.println(trade.getFirstTradeDate());
     }
 }

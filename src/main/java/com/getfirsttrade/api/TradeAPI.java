@@ -1,16 +1,16 @@
 package com.getfirsttrade.api;
 
-import com.getfirsttrade.response.FirstTrade;
-import com.google.api.server.spi.config.*;
 import com.getfirsttrade.constant.Constants;
+import com.getfirsttrade.response.TradeHistory;
+import com.google.api.server.spi.config.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.logging.Logger;
-import org.apache.http.util.EntityUtils;
 
 /**
  * The Echo API which Endpoints will be exposing.
@@ -40,7 +40,6 @@ public class TradeAPI {
     private static final Logger LOGGER = Logger
             .getLogger(TradeAPI.class.getName());
 
-    private FirstTrade trade;
 
     /**
      * Exposed API Endpoint. A reconciliation request will be processed,
@@ -48,16 +47,21 @@ public class TradeAPI {
      *
      * @return ResponseBundle of Reconciliation Results
      */
-    @ApiMethod(name = "getfirsttrade", apiKeyRequired = AnnotationBoolean.FALSE)
-    public FirstTrade getFirstTrade() {
-        trade = new FirstTrade();
+    @ApiMethod(name = "gettradehistory", apiKeyRequired = AnnotationBoolean.FALSE)
+    public TradeHistory getTradeHistory() {
+        TradeHistory trade = new TradeHistory();
         trade.setFirstTradeDate(
-                executePost()
+                doSteamAPIRequest()
         );
         return trade;
     }
 
-    private String executePost() {
+    /**
+     * Submit API Request to Steam Web API
+     *
+     * @return String of Steam Web API Response (JSON)
+     */
+    private String doSteamAPIRequest() {
         HttpClient client = getHttpClient();
         HttpGet getRequest = new HttpGet("https://api.steampowered.com/IEconService/GetTradeHistory/v1/?key=69D27D28A041392DB16B9839AA3C75BE&max_trades=1");
 
@@ -73,11 +77,23 @@ public class TradeAPI {
 
     }
 
+    /**
+     * Retrieve HTTP Client used to send Requests.
+     *
+     * @return
+     */
     private HttpClient getHttpClient() {
         return HttpClientBuilder.create().build();
     }
 
-    private String getHttpResponseAsString(HttpResponse resp) throws IOException{
+    /**
+     * Convert HttpResponse to a String.
+     *
+     * @param resp HttpResponse from Steam Web API
+     * @return JSON Response as String
+     * @throws IOException Error converting to String.
+     */
+    private String getHttpResponseAsString(HttpResponse resp) throws IOException {
         return EntityUtils.toString(resp.getEntity());
     }
 }

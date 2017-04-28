@@ -18,6 +18,6 @@
     </system-properties>
 
     <env-variables>
-        <env-var name="ENDPOINTS_SERVICE_NAME" value="reconcile-api.endpoints.${endpoints.project.id}.cloud.goog"/>
+        <env-var name="ENDPOINTS_SERVICE_NAME" value="steam-trade-api.endpoints.${endpoints.project.id}.cloud.goog"/>
     </env-variables>
 </appengine-web-app>
