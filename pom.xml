@@ -56,6 +56,13 @@
             <artifactId>endpoints-framework-auth</artifactId>
             <version>${endpoints.management.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.4</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-pubsub</artifactId>
@@ -121,7 +128,7 @@
                                 <argument>--hostname=reconcile-api.endpoints.${endpoints.project.id}.cloud.goog
                                 </argument>
                                 <argument>--war=target/reconcile-1.0-SNAPSHOT</argument>
-                                <argument>com.getfirsttrade.api.GetFirstTrade</argument>
+                                <argument>com.getfirsttrade.api.TradeAPI</argument>
                             </arguments>
                         </configuration>
                         <dependencies>

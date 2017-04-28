@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="GetFirstTradeSteam" />
         <module name="iCABS-Reconcile-API" />
         <module name="reconcile" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="GetFirstTradeSteam" target="1.7" />
       <module name="iCABS-Reconcile-API" target="1.7" />
       <module name="reconcile" target="1.7" />
     </bytecodeTargetLevel>

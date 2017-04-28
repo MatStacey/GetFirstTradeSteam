@@ -5,6 +5,16 @@ package com.getfirsttrade.response;
  */
 public class FirstTrade {
 
+    public String getFirstTradeDate() {
+        return firstTradeDate;
+    }
+
+    public void setFirstTradeDate(String firstTradeDate) {
+        this.firstTradeDate = firstTradeDate;
+    }
+
     String firstTradeDate;
+
+
 
 }
