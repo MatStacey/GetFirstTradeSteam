@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+    <application>icabs-gcp</application>
+    <version>1</version>
+    <threadsafe>true</threadsafe>
+
+    <automatic-scaling>
+        <min-idle-instances>1</min-idle-instances>
+        <max-idle-instances>automatic</max-idle-instances>
+        <min-pending-latency>60ms</min-pending-latency>
+        <max-pending-latency>automatic</max-pending-latency>
+        <max-concurrent-requests>4</max-concurrent-requests>
+    </automatic-scaling>
+
+    <service>reconcile</service>
+    <system-properties>
+        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+    </system-properties>
+
+    <env-variables>
+        <env-var name="ENDPOINTS_SERVICE_NAME" value="reconcile-api.endpoints.icabs-gcp.cloud.goog"/>
+    </env-variables>
+</appengine-web-app>

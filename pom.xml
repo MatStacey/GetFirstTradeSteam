@@ -1,0 +1,171 @@
+<!--
+ Copyright 2016 Google Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <groupId>com.getfirsttrade</groupId>
+    <artifactId>steamtradeapi</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <endpoints.framework.version>2.0.0</endpoints.framework.version>
+        <endpoints.management.version>1.0.1</endpoints.management.version>
+
+        <endpoints.project.id>steamtradeplatform</endpoints.project.id>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <appengine.maven.plugin.version>1.9.50</appengine.maven.plugin.version>
+    </properties>
+
+    <dependencies>
+        <!-- Compile/runtime dependencies -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.endpoints</groupId>
+            <artifactId>endpoints-framework</artifactId>
+            <version>${endpoints.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.endpoints</groupId>
+            <artifactId>endpoints-management-control-appengine</artifactId>
+            <version>${endpoints.management.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.endpoints</groupId>
+            <artifactId>endpoints-framework-auth</artifactId>
+            <version>${endpoints.management.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-pubsub</artifactId>
+            <version>v1-rev12-1.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-api-1.0-sdk -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${appengine.maven.plugin.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-testing -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-testing</artifactId>
+            <version>${appengine.maven.plugin.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-api-labs -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-labs</artifactId>
+            <version>${appengine.maven.plugin.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-api-stubs -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-stubs</artifactId>
+            <version>${appengine.maven.plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-bigquery</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>GetSwaggerDoc</id>
+            <activation>
+                <property>
+                    <name>GetSwaggerDoc</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.4.0</version>
+                        <configuration>
+                            <includePluginDependencies>true</includePluginDependencies>
+                            <mainClass>com.google.api.server.spi.tools.EndpointsTool</mainClass>
+                            <arguments>
+                                <argument>get-swagger-doc</argument>
+                                <argument>--hostname=reconcile-api.endpoints.${endpoints.project.id}.cloud.goog
+                                </argument>
+                                <argument>--war=target/reconcile-1.0-SNAPSHOT</argument>
+                                <argument>com.getfirsttrade.api.GetFirstTrade</argument>
+                            </arguments>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.google.endpoints</groupId>
+                                <artifactId>endpoints-framework-tools</artifactId>
+                                <version>${endpoints.framework.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.google.appengine</groupId>
+                                <artifactId>appengine-api-1.0-sdk</artifactId>
+                                <version>${appengine.maven.plugin.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <!-- for hot reload of the web application-->
+        <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                            <filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${appengine.maven.plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

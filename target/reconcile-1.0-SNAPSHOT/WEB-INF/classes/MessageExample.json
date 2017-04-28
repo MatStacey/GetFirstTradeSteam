@@ -1,0 +1,22 @@
+{
+  "REQUESTS": [
+    {
+      "REQUESTTYPE": "reconcile",
+      "COUNTRY": "ZA",
+      "TABLE": "Account",
+      "COLUMN": "AccountNumber",
+      "COUNT": "50",
+      "SUM": "100",
+      "TIMESTAMP": "2017-03-01 00:00:00.000"
+    },
+    {
+      "REQUESTTYPE": "reconcile",
+      "COUNTRY": "PT",
+      "TABLE": "Contract",
+      "COLUMN": "ContractNumber",
+      "COUNT": "30",
+      "SUM": "90",
+      "TIMESTAMP": "2017-03-02 00:00:00.000"
+    }
+  ]
+}
